@@ -7,6 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { bodyParts } from '../data/bodyParts';
+import { Header } from 'react-native-elements';
+import { TopMenuBar } from '../components/TopBarMenu';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -14,11 +16,17 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <View>
-        <View style={styles.container}>
-          <Text>Where is affected?</Text>
-        </View>
-        <ScrollView>
+      <View style={styles.container}>
+        <Header
+          placement="left"
+          leftComponent={{
+            text: 'Where is the problem ?',
+            style: { color: '#fff' }
+          }}
+          containerStyle={{ backgroundColor: '#72b6fd' }}
+          rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
+        />
+        <ScrollView style={{ flex: 1, width: '100%' }}>
           {bodyParts.map(bodyPart => {
             return (
               <TouchableOpacity

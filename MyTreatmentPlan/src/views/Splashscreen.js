@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 
 export default class App extends Component {
   constructor(props) {
@@ -8,15 +9,26 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/mtp.png')} />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.props.onClickVar('affectedArea');
-          }}
-        >
-          <Text style={styles.buttonText}>START</Text>
-        </TouchableOpacity>
+        <Header
+          containerStyle={{ backgroundColor: '#FFF' }}
+          leftComponent={
+            <Image
+              style={styles.device}
+              source={require('../assets/mtp-device.png')}
+            />
+          }
+        />
+        <View style={styles.container}>
+          <Image style={styles.logo} source={require('../assets/mtp.png')} />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.props.onClickVar('affectedArea');
+            }}
+          >
+            <Text style={styles.buttonText}>START</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -25,12 +37,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
+    alignItems: 'center'
   },
   logo: {
-    height: 32,
-    width: 180
+    height: 30,
+    width: 176,
+    margin: 12
+  },
+  device: {
+    height: 10,
+    width: 37,
+    marginTop: 12,
+    marginBottom: 12
   },
   button: {
     backgroundColor: '#fafafa',

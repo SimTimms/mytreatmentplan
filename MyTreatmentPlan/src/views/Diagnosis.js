@@ -8,10 +8,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { gql } from 'apollo-boost';
+import { Header } from 'react-native-elements';
+import { TopMenuBar } from '../components/TopBarMenu';
 
 const GET_DIAGNOSIS = gql`
   {
     diagnosisOptions {
+      id
       name
     }
   }
@@ -23,25 +26,30 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <View>
-        <View style={styles.container}>
-          <Text>Select a Diagnosis!</Text>
-        </View>
-        <ScrollView>
+      <View style={styles.container}>
+        <Header
+          placement="left"
+          leftComponent={{
+            text: 'What is your diagnosis?',
+            style: { color: '#fff' }
+          }}
+          containerStyle={{ backgroundColor: '#72b6fd' }}
+          rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
+        />
+        <ScrollView style={{ flex: 1, width: '100%' }}>
           <Query query={GET_DIAGNOSIS}>
             {({ loading, error, data }) => {
-              if (loading) return <Text>Loadidng...</Text>;
+              if (loading) return <Text>Loading...</Text>;
               if (error) {
                 return <Text>{error.toString()}</Text>;
               }
 
               return data.diagnosisOptions.map(diagnosis => {
-                console.log(diagnosis);
                 return (
                   <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                      this.props.onClickVar('home');
+                      this.props.onClickVar(diagnosis.id);
                     }}
                     key={diagnosis.id}
                   >
