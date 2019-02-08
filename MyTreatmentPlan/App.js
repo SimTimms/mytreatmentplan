@@ -5,9 +5,10 @@ import Splashscreen from './src/views/Splashscreen';
 import Diagnosis from './src/views/Diagnosis';
 import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
+import MenuArea from './src/views/Menu';
 
 const client = new ApolloClient({
-  uri: 'https://clinic-api-dev.herokuapp.com/graphql'
+  uri: 'https://clinic-api-dev.herokuapp.com/graphql',
 });
 
 export default class App extends React.Component {
@@ -18,19 +19,33 @@ export default class App extends React.Component {
 
   render() {
     function LoadView(props) {
-      if (props.diagnosisId === null) {
-        switch (props.view) {
-          case 'diagnosis':
-            return <Diagnosis onClickVar={setDiagnosis} />;
+      switch (props.view) {
+        case 'diagnosis':
+          return <Diagnosis onClickVar={setDiagnosis} />;
 
-          case 'affectedArea':
-            return <BodyPart onClickVar={changeView} />;
+        case 'affectedArea':
+          return <BodyPart onClickVar={changeView} />;
 
-          default:
-            return <Splashscreen onClickVar={changeView} />;
-        }
-      } else {
-        return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+        case 'treatments':
+          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+
+        case 'exercises':
+          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+
+        case 'referred':
+          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+
+        case 'options':
+          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+
+        case 'investigations':
+          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+
+        case 'menu':
+          return <MenuArea id={props.diagnosisId} onClickVar={viewSection} />;
+
+        default:
+          return <Splashscreen onClickVar={changeView} />;
       }
     }
 
@@ -39,7 +54,11 @@ export default class App extends React.Component {
     };
 
     const setDiagnosis = id => {
-      this.setState({ diagnosisId: id });
+      this.setState({ diagnosisId: id, view: 'menu' });
+    };
+
+    const viewSection = (id, category) => {
+      this.setState({ diagnosisId: id, view: category });
     };
 
     return (

@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { styles } from '../styles';
 import { bodyParts } from '../data/bodyParts';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
+import { GlobalMenuItem } from '../components/GlobalMenuItem';
 
-export default class App extends React.Component {
+export default class BodyPart extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,23 +17,24 @@ export default class App extends React.Component {
           placement="left"
           leftComponent={{
             text: 'Where is the problem ?',
-            style: { color: '#fff' }
+            style: { color: '#fff' },
           }}
           containerStyle={{ backgroundColor: '#72b6fd' }}
           rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
         />
-        <ScrollView style={{ flex: 1, width: '100%' }}>
+        <ScrollView style={styles.scrollView}>
           {bodyParts.map(bodyPart => {
+            console.log(bodyPart);
             return (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.onClickVar('diagnosis');
-                }}
-                key={bodyPart}
-              >
-                <Text style={styles.buttonText}>{bodyPart}</Text>
-              </TouchableOpacity>
+              <GlobalMenuItem
+                name={bodyPart.name}
+                key={bodyPart.name}
+                id={this.props.id}
+                onClickVar={this.props.onClickVar}
+                onClickDestination="diagnosis"
+                bgImage={bodyPart.name}
+                summary={bodyPart.summary}
+              />
             );
           })}
         </ScrollView>
@@ -45,30 +42,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
-  },
-  logo: {
-    height: 32,
-    width: 180
-  },
-  button: {
-    backgroundColor: '#fafafa',
-    borderColor: 'white',
-    borderWidth: 1,
-    overflow: 'hidden',
-    padding: 12,
-    textAlign: 'center',
-    margin: 0
-  },
-  buttonText: {
-    color: '#aaa',
-    fontSize: 16,
-    fontWeight: '300'
-  }
-});

@@ -1,40 +1,11 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { StyleSheet, View, Text, ScrollView, WebView } from 'react-native';
-import { gql } from 'apollo-boost';
+import { View, Text, ScrollView } from 'react-native';
+import { styles } from '../styles';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
-
-const GET_CONTENT = gql`
-  query diagnosisContent($id: String!) {
-    publicDiagnosisContent(id: $id) {
-      id
-      name
-      pages {
-        title
-        header {
-          title
-          subtitle
-          icon
-        }
-        learnMoreTitle
-        learnMoreMessage
-        content {
-          gallery {
-            slides {
-              name
-              image
-            }
-          }
-          richText {
-            text
-          }
-        }
-        orderNbr
-      }
-    }
-  }
-`;
+import { replaceHTMLTags } from '../helpers/index';
+import { FULL_CONTENT, GET_CONTENT } from '../api/queries';
 
 export default class ContentArea extends React.Component {
   constructor(props) {
@@ -47,20 +18,12 @@ export default class ContentArea extends React.Component {
           placement="left"
           leftComponent={{
             text: 'Information',
-            style: { color: '#fff' }
+            style: { color: '#fff' },
           }}
           containerStyle={{ backgroundColor: '#72b6fd' }}
           rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
         />
-        <ScrollView
-          style={{
-            flex: 1,
-            width: '100%',
-            margin: 10,
-            paddingLeft: 10,
-            paddingRight: 10
-          }}
-        >
+        <ScrollView style={styles.scrollView}>
           <Query query={GET_CONTENT} variables={{ id: this.props.id }}>
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
@@ -74,13 +37,13 @@ export default class ContentArea extends React.Component {
 
               return (
                 <View>
-                  <Text>{header}</Text>
+                  <Text style={{ fontWeight: 'bold' }}>{header}</Text>
                   <Text>
                     {pageContent.map(contentItem => {
                       if (contentItem.richText !== null) {
                         return (
                           <Text key={Math.random(100000)}>
-                            {contentItem.richText.text}
+                            {replaceHTMLTags(contentItem.richText.text)}
                           </Text>
                         );
                       }
@@ -90,35 +53,46 @@ export default class ContentArea extends React.Component {
               );
             }}
           </Query>
+          <Query query={FULL_CONTENT} variables={{ id: this.props.id }}>
+            {({ loading, error, data }) => {
+              if (loading) return <Text>Loading...</Text>;
+              if (error) {
+                return <Text>{error.toString()}</Text>;
+              }
+
+              return (
+                <View>
+                  {data.getCommonPlan.optionsResolved.map(page => {
+                    const pageCategory = page.type.name;
+                    const pageContent = page.pages[0].content.map(
+                      contentItem => {
+                        if (contentItem.richText !== null) {
+                          return (
+                            <Text key={Math.random(100000)}>
+                              {replaceHTMLTags(contentItem.richText.text)}
+                            </Text>
+                          );
+                        }
+                      },
+                    );
+
+                    return [
+                      <Text
+                        style={{ fontWeight: 'bold' }}
+                        key={Math.random(100000)}
+                      >
+                        {page.pages[0].header.title}
+                      </Text>,
+                      <Text key={Math.random(100000)}>{pageCategory}</Text>,
+                      ...pageContent,
+                    ];
+                  })}
+                </View>
+              );
+            }}
+          </Query>
         </ScrollView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
-  },
-  logo: {
-    height: 32,
-    width: 180
-  },
-  button: {
-    backgroundColor: '#fafafa',
-    borderColor: 'white',
-    borderWidth: 1,
-    overflow: 'hidden',
-    padding: 12,
-    textAlign: 'center',
-    margin: 0
-  },
-  buttonText: {
-    color: '#aaa',
-    fontSize: 16,
-    fontWeight: '300'
-  }
-});
