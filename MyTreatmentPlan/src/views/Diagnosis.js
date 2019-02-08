@@ -2,18 +2,9 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { styles } from '../styles';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { gql } from 'apollo-boost';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
-
-const GET_DIAGNOSIS = gql`
-  {
-    diagnosisOptions {
-      id
-      name
-    }
-  }
-`;
+import { GET_DIAGNOSIS } from '../api/queries';
 
 export default class App extends React.Component {
   constructor(props) {

@@ -30,6 +30,15 @@ export const GET_CONTENT = gql`
   }
 `;
 
+export const GET_DIAGNOSIS = gql`
+  {
+    diagnosisOptions {
+      id
+      name
+    }
+  }
+`;
+
 export const FULL_CONTENT = gql`
   query diagnosisContent($id: String!) {
     getCommonPlan(diagnosisId: $id) {

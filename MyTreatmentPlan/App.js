@@ -1,15 +1,11 @@
 import React from 'react';
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import Splashscreen from './src/views/Splashscreen';
 import Diagnosis from './src/views/Diagnosis';
 import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
 import MenuArea from './src/views/Menu';
-
-const client = new ApolloClient({
-  uri: 'https://clinic-api-dev.herokuapp.com/graphql',
-});
+import { client } from './apolloConfig';
 
 export default class App extends React.Component {
   constructor(props) {

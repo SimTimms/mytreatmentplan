@@ -58,6 +58,19 @@ export default class App extends Component {
             >
               recover yourself
             </Text>
+            <Text
+              style={{
+                color: '#72b6fd',
+                fontWeight: '300',
+                fontSize: 16,
+                backgroundColor: 'rgba(0,0,0,0.1)',
+                width: '100%',
+                paddingBottom: 10,
+                textAlign: 'center',
+              }}
+            >
+              MSK edition
+            </Text>
             <View
               style={{
                 backgroundColor: 'rgba(0,0,0,0.1)',
