@@ -99,7 +99,6 @@ export const GlobalMenuItem = props => {
       <View>
         <Text style={[styles.buttonText, styles.bold]}>{props.name}</Text>
         <Text style={[styles.buttonText, styles.summary]}>{props.summary}</Text>
-        }
       </View>
     </TouchableOpacity>
   );
