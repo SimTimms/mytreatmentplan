@@ -45,7 +45,7 @@ export const FULL_CONTENT = gql`
       diagnosisId
       options
 
-      optionsResolved {
+      treatments {
         type {
           name
           id
