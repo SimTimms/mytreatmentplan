@@ -53,7 +53,10 @@ export default class ContentArea extends React.Component {
               );
             }}
           </Query>
-          <Query query={FULL_CONTENT} variables={{ id: this.props.id }}>
+          <Query
+            query={FULL_CONTENT}
+            variables={{ id: this.props.id, typeId: this.props.typeId }}
+          >
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
               if (error) {

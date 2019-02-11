@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, View, Image } from 'react-native';
 import { styles } from '../styles';
 
 const ImageSquare = props => {
-  console.log(props);
   if (props.bgImage) {
     switch (props.bgImage) {
       case 'chorizo.jpg':
@@ -53,7 +52,7 @@ export const MenuItem = props => {
     <TouchableOpacity
       style={[styles.button]}
       onPress={() => {
-        props.onClickVar(props.id, props.keyName);
+        props.onClickVar(props.id, props.keyName, props.typeId);
       }}
       key={props.keyName}
     >

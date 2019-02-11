@@ -31,20 +31,22 @@ export const GET_CONTENT = gql`
 `;
 
 export const GET_DIAGNOSIS = gql`
-  {
-    diagnosisOptions {
+  query getDiagnosis($id: String!) {
+    publicBodyPart(id: $id) {
       id
-      name
+      options {
+        id
+        name
+      }
     }
   }
 `;
 
 export const FULL_CONTENT = gql`
-  query diagnosisContent($id: String!) {
-    getCommonPlan(diagnosisId: $id) {
+  query diagnosisContent($id: String!, $typeId: String!) {
+    getCommonPlan(diagnosisId: $id, typeId: $typeId) {
       diagnosisId
       options
-
       optionsResolved {
         type {
           name

@@ -20,17 +20,6 @@ export default class App extends Component {
           source={require('../assets/splash.jpg')}
           style={{ width: '100%', height: '100%' }}
         >
-          <Header
-            containerStyle={{
-              backgroundColor: 'rgba(0,0,0,0.2)',
-            }}
-            leftComponent={
-              <Image
-                style={styles.device}
-                source={require('../assets/mtp-device.png')}
-              />
-            }
-          />
           <View style={styles.container}>
             <Text
               style={{

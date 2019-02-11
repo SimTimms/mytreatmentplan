@@ -10,20 +10,26 @@ import { client } from './apolloConfig';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { view: 'splash', diagnosisId: null };
+    this.state = { view: 'splash', diagnosisId: null, bodyId: null };
   }
 
   render() {
     function LoadView(props) {
       switch (props.view) {
         case 'diagnosis':
-          return <Diagnosis onClickVar={setDiagnosis} />;
+          return <Diagnosis id={props.bodyId} onClickVar={setDiagnosis} />;
 
         case 'affectedArea':
-          return <BodyPart onClickVar={changeView} />;
+          return <BodyPart onClickVar={setBodyPart} />;
 
         case 'treatments':
-          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+          return (
+            <ContentArea
+              id={props.diagnosisId}
+              typeId="5a82cb1c8ff6fb08a0334a9c"
+              onClickVar={changeView}
+            />
+          );
 
         case 'exercises':
           return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
@@ -49,6 +55,10 @@ export default class App extends React.Component {
       this.setState({ diagnosisId: null, view });
     };
 
+    const setBodyPart = id => {
+      this.setState({ bodyId: id, view: 'diagnosis' });
+    };
+
     const setDiagnosis = id => {
       this.setState({ diagnosisId: id, view: 'menu' });
     };
@@ -59,7 +69,11 @@ export default class App extends React.Component {
 
     return (
       <ApolloProvider client={client}>
-        <LoadView view={this.state.view} diagnosisId={this.state.diagnosisId} />
+        <LoadView
+          view={this.state.view}
+          diagnosisId={this.state.diagnosisId}
+          bodyId={this.state.bodyId}
+        />
       </ApolloProvider>
     );
   }

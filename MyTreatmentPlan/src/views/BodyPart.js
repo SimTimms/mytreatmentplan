@@ -24,12 +24,11 @@ export default class BodyPart extends React.Component {
         />
         <ScrollView style={styles.scrollView}>
           {bodyParts.map(bodyPart => {
-            console.log(bodyPart);
             return (
               <GlobalMenuItem
                 name={bodyPart.name}
                 key={bodyPart.name}
-                id={this.props.id}
+                id={bodyPart.id}
                 onClickVar={this.props.onClickVar}
                 onClickDestination="diagnosis"
                 bgImage={bodyPart.name}

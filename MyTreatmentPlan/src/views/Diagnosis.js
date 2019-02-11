@@ -11,6 +11,7 @@ export default class App extends React.Component {
     super(props);
   }
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Header
@@ -23,14 +24,14 @@ export default class App extends React.Component {
           rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
         />
         <ScrollView style={styles.scrollView}>
-          <Query query={GET_DIAGNOSIS}>
+          <Query query={GET_DIAGNOSIS} variables={{ id: this.props.id }}>
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
               if (error) {
                 return <Text>{error.toString()}</Text>;
               }
 
-              return data.diagnosisOptions.map(diagnosis => {
+              return data.publicBodyPart.options.map(diagnosis => {
                 return (
                   <TouchableOpacity
                     style={styles.button}

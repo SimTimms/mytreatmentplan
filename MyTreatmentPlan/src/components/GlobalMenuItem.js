@@ -91,7 +91,7 @@ export const GlobalMenuItem = props => {
     <TouchableOpacity
       style={[styles.button]}
       onPress={() => {
-        props.onClickVar(props.onClickDestination);
+        props.onClickVar(props.id);
       }}
       key={props.keyName}
     >
