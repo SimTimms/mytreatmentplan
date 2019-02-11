@@ -47,7 +47,8 @@ export const FULL_CONTENT = gql`
     getCommonPlan(diagnosisId: $id, typeId: $typeId) {
       diagnosisId
       options
-      optionsResolved {
+
+      treatments {
         type {
           name
           id
