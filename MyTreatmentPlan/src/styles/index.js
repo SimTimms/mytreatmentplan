@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   exerciseCard: { width: '100%', height: 300 },
+  bodyPartCard: { height: 100 },
+  diagnosisCard: { height: 120 },
+  menuCard: { height: 120 },
   card: {
     width: 130,
     height: 140,

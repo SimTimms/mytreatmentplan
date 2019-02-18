@@ -104,6 +104,7 @@ export default class ExerciseContent extends React.Component {
                           key={exercise.id}
                         >
                           <CardWrapper
+                            parentStyle={styles.exerciseCard}
                             onClickVar={this.props.onClickVar}
                             objectIn={exercise}
                             gradientBorder={gradientBorder}
@@ -111,7 +112,6 @@ export default class ExerciseContent extends React.Component {
                             title={exerciseName}
                             summary={exerciseDescription}
                             style={{ flex: 1, width: 200 }}
-                            innerWrapper="dark"
                           >
                             <View
                               style={{
@@ -127,6 +127,10 @@ export default class ExerciseContent extends React.Component {
                                 style={{ height: 200, marginBottom: 20 }}
                               />
                             </View>
+                            <CardFooter
+                              gradientColor={gradient}
+                              footerType="exercise"
+                            />
                           </CardWrapper>
                         </TouchableOpacity>
                       );

@@ -35,12 +35,13 @@ export default class MenuArea extends React.Component {
             }}
           >
             <TouchableOpacity
-              style={styles.card}
+              style={[styles.card, styles.menuCard]}
               onPress={() => {
                 this.props.onClickVar(this.props.id, 'diagnosisContent', null);
               }}
             >
               <CardWrapper
+                parentStyle={styles.menuCard}
                 key={this.props.id}
                 gradientBorder={['#F5838C', '#700313']}
                 gradient={['#F5515F', '#9F041B']}
@@ -91,7 +92,7 @@ export default class MenuArea extends React.Component {
 
               return (
                 <TouchableOpacity
-                  style={styles.card}
+                  style={[styles.card, styles.menuCard]}
                   key={menuItem.keyName}
                   onPress={() => {
                     this.props.onClickVar(
@@ -102,6 +103,7 @@ export default class MenuArea extends React.Component {
                   }}
                 >
                   <CardWrapper
+                    parentStyle={styles.menuCard}
                     onClickVar={this.props.onClickVar}
                     objectIn={menuItem}
                     gradientBorder={gradientBorder}

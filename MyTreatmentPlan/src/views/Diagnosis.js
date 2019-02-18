@@ -84,13 +84,14 @@ export default class App extends React.Component {
 
                     return (
                       <TouchableOpacity
-                        style={styles.card}
+                        style={[styles.card, styles.diagnosisCard]}
                         key={diagnosis.id}
                         onPress={() => {
                           this.props.onClickVar(diagnosis.id, 'diagnosis');
                         }}
                       >
                         <CardWrapper
+                          parentStyle={styles.diagnosisCard}
                           onClickVar={this.props.onClickVar}
                           objectIn={diagnosis}
                           gradientBorder={gradientBorder}

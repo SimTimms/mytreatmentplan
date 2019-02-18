@@ -1,11 +1,14 @@
 import React from 'react';
 import { styles } from '../styles';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo';
 
 export const CardWrapper = props => {
   const innerBG =
     props.innerWrapper !== 'dark' ? props.gradient : ['#0A1828', '#0A1828'];
+
+  const innerHeight = props.parentStyle ? props.parentStyle.height - 42 : 100;
+
   return (
     <View>
       <LinearGradient
@@ -25,19 +28,23 @@ export const CardWrapper = props => {
             width: '100%',
             height: '100%',
           }}
-          imageStyle={{ borderRadius: 12 }}
+          imageStyle={{ borderRadius: 10 }}
         >
+          <Text style={styles.cardTitle}>{props.title}</Text>
           <LinearGradient
             colors={innerBG}
             style={{
-              height: '100%',
+              height: innerHeight,
               alignItems: 'center',
-              borderRadius: 10,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
               width: '100%',
               opacity: 0.9,
+              paddingBottom: 10,
             }}
           >
-            <Text style={styles.cardTitle}>{props.title}</Text>
             <Text style={styles.cardText}>{props.summary}</Text>
             {props.children}
           </LinearGradient>

@@ -27,6 +27,22 @@ export const CardFooter = props => {
           </View>
         );
 
+      case 'bodyPart':
+        return (
+          <View
+            style={{
+              paddingBottom: 10,
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Icon name="check-circle" type="material" color="#FFF" size={24} />
+          </View>
+        );
+
       default:
         const progressValue = Math.floor(Math.random() * 100) + 1;
         let isReading =

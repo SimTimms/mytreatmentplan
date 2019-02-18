@@ -13,7 +13,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'menu',
+      view: 'affectedArea',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
     };

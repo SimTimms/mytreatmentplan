@@ -20,7 +20,7 @@ export default class DiagnosisContent extends React.Component {
             text: 'Information',
             style: { color: '#fff' },
           }}
-          containerStyle={{ backgroundColor: '#72b6fd' }}
+          containerStyle={{ backgroundColor: 'transparent' }}
           rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
         />
         <ScrollView style={styles.scrollView}>
