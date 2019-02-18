@@ -5,14 +5,15 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { GET_DIAGNOSIS } from '../api/queries';
-import { LinearGradient } from 'expo';
 import { CardFooter } from '../components/CardFooter';
+import { CardWrapper } from '../components/CardWrapper';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <Header
@@ -42,26 +43,63 @@ export default class App extends React.Component {
                     justifyContent: 'center',
                   }}
                 >
-                  {data.publicBodyPart.options.map(diagnosis => {
+                  {data.publicBodyPart.options.map((diagnosis, index) => {
+                    //TODO: BAD BAD BAD, fix this later with an alogrthm
+                    const colorArray = [
+                      ['#FAD961', '#F76B1C'],
+                      ['#6BE7FF', '#8DBBFF'],
+                      ['#B4EC51', '#429321'],
+                      ['#C86DD7', '#3023AE'],
+                      ['#F5515F', '#9F041B'],
+                      ['#FAD961', '#F76B1C'],
+                      ['#6BE7FF', '#8DBBFF'],
+                      ['#B4EC51', '#429321'],
+                      ['#C86DD7', '#3023AE'],
+                      ['#F5515F', '#9F041B'],
+                      ['#FAD961', '#F76B1C'],
+                      ['#6BE7FF', '#8DBBFF'],
+                      ['#B4EC51', '#429321'],
+                      ['#C86DD7', '#3023AE'],
+                    ];
+                    const borderArray = [
+                      ['#F7DE85', '#C75413'],
+                      ['#A6F1FF', '#5185D0'],
+                      ['#CCEF8D', '#326D1A'],
+                      ['#C86DD7', '#241987'],
+                      ['#F5838C', '#700313'],
+                      ['#F7DE85', '#C75413'],
+                      ['#A6F1FF', '#5185D0'],
+                      ['#CCEF8D', '#326D1A'],
+                      ['#C86DD7', '#241987'],
+                      ['#F5838C', '#700313'],
+                      ['#F7DE85', '#C75413'],
+                      ['#A6F1FF', '#5185D0'],
+                      ['#CCEF8D', '#326D1A'],
+                      ['#C86DD7', '#241987'],
+                      ['#F5838C', '#700313'],
+                    ];
+
+                    let gradient = colorArray[index];
+                    let gradientBorder = borderArray[index];
+
                     return (
                       <TouchableOpacity
                         style={styles.card}
-                        onPress={() => {
-                          this.props.onClickVar(diagnosis.id);
-                        }}
                         key={diagnosis.id}
+                        onPress={() => {
+                          this.props.onClickVar(diagnosis.id, 'diagnosis');
+                        }}
                       >
-                        <LinearGradient
-                          colors={['#FFC16B', '#FFA78D']}
-                          style={{
-                            height: '100%',
-                            alignItems: 'center',
-                          }}
+                        <CardWrapper
+                          onClickVar={this.props.onClickVar}
+                          objectIn={diagnosis}
+                          gradientBorder={gradientBorder}
+                          gradient={gradient}
+                          title={diagnosis.name}
+                          summary="Test summary here"
                         >
-                          <Text style={styles.cardTitle}>{diagnosis.name}</Text>
-                          <Text style={styles.cardText}>Summary text here</Text>
-                          <CardFooter />
-                        </LinearGradient>
+                          <CardFooter gradientColor={gradient} />
+                        </CardWrapper>
                       </TouchableOpacity>
                     );
                   })}

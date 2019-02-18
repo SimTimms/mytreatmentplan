@@ -3,20 +3,68 @@ import { Icon } from 'react-native-elements';
 import ProgressCircle from 'react-native-progress-circle';
 import { View, Text } from 'react-native';
 
-export const CardFooter = () => {
-  return (
-    <View style={{ paddingBottom: 10 }}>
-      <ProgressCircle
-        percent={30}
-        radius={18}
-        borderWidth={4}
-        color="#FFF"
-        shadowColor="#F5935E"
-        bgColor="#FF9F6B"
-      >
-        <Icon name="book" color="#FFF" size={14} />
-        <Text style={{ color: '#FFF' }}>Read</Text>
-      </ProgressCircle>
-    </View>
-  );
+export const CardFooter = props => {
+  {
+    switch (props.footerType) {
+      case 'Exercises':
+        const streak = Math.floor(Math.random() * 10);
+        return (
+          <View
+            style={{
+              paddingBottom: 10,
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Icon name="star" type="material" color="#FFF" size={30} />
+
+            <Text
+              style={{ color: '#FFF', marginLeft: 2 }}
+            >{`${streak} Day Streak`}</Text>
+          </View>
+        );
+
+      default:
+        const progressValue = Math.floor(Math.random() * 100) + 1;
+        let isReading =
+          progressValue < 10
+            ? 'Start'
+            : progressValue > 60
+            ? 'Done'
+            : 'Continue';
+        let icon =
+          progressValue < 10
+            ? 'play-arrow'
+            : progressValue > 60
+            ? 'star'
+            : 'more-horiz';
+        return (
+          <View
+            style={{
+              paddingBottom: 10,
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ProgressCircle
+              percent={progressValue}
+              radius={18}
+              borderWidth={4}
+              color="#FFF"
+              shadowColor={props.gradientColor[1]}
+              bgColor={props.gradientColor[0]}
+            >
+              <Icon name={icon} type="material" color="#FFF" size={14} />
+            </ProgressCircle>
+            <Text style={{ color: '#FFF', marginLeft: 10 }}>{isReading}</Text>
+          </View>
+        );
+    }
+  }
 };

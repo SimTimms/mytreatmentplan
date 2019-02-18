@@ -13,8 +13,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'diagnosis',
-      diagnosisId: null,
+      view: 'menu',
+      diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
     };
   }
@@ -45,6 +45,7 @@ export default class App extends React.Component {
           );
 
         case 'exercises':
+          console.log(props);
           return (
             <ExerciseContent
               id={props.diagnosisId}
