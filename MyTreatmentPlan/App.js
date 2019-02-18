@@ -4,20 +4,32 @@ import Splashscreen from './src/views/Splashscreen';
 import Diagnosis from './src/views/Diagnosis';
 import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
+import DiagnosisContent from './src/views/DiagnosisContent';
+import ExerciseContent from './src/views/ExerciseContent';
 import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { view: 'splash', diagnosisId: null, bodyId: null };
+    this.state = {
+      view: 'diagnosis',
+      diagnosisId: null,
+      bodyId: '5a7d745315f433032bdfae68',
+    };
   }
 
   render() {
     function LoadView(props) {
       switch (props.view) {
         case 'diagnosis':
-          return <Diagnosis id={props.bodyId} onClickVar={setDiagnosis} />;
+          return (
+            <Diagnosis
+              id={props.bodyId}
+              onClickVar={setDiagnosis}
+              style={{ flex: 1 }}
+            />
+          );
 
         case 'affectedArea':
           return <BodyPart onClickVar={setBodyPart} />;
@@ -26,22 +38,55 @@ export default class App extends React.Component {
           return (
             <ContentArea
               id={props.diagnosisId}
+              typeName="treatments"
               typeId="5a82cb1c8ff6fb08a0334a9c"
               onClickVar={changeView}
             />
           );
 
         case 'exercises':
-          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+          return (
+            <ExerciseContent
+              id={props.diagnosisId}
+              typeName="exercises"
+              onClickVar={changeView}
+            />
+          );
 
         case 'referred':
-          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+          return (
+            <ContentArea
+              id={props.diagnosisId}
+              typeName="referred"
+              typeId="5a82cb1c8ff6fb08a0334a9c"
+              onClickVar={changeView}
+            />
+          );
 
         case 'options':
-          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+          return (
+            <ContentArea
+              id={props.diagnosisId}
+              typeName="options"
+              typeId="5a82cb1c8ff6fb08a0334a9c"
+              onClickVar={changeView}
+            />
+          );
 
         case 'investigations':
-          return <ContentArea id={props.diagnosisId} onClickVar={changeView} />;
+          return (
+            <ContentArea
+              id={props.diagnosisId}
+              typeName="investigations"
+              typeId="5a82cb1c8ff6fb08a0334a9c"
+              onClickVar={changeView}
+            />
+          );
+
+        case 'diagnosisContent':
+          return (
+            <DiagnosisContent id={props.diagnosisId} onClickVar={changeView} />
+          );
 
         case 'menu':
           return <MenuArea id={props.diagnosisId} onClickVar={viewSection} />;
@@ -73,6 +118,7 @@ export default class App extends React.Component {
           view={this.state.view}
           diagnosisId={this.state.diagnosisId}
           bodyId={this.state.bodyId}
+          style={{ flex: 1, backgroundColor: '#222' }}
         />
       </ApolloProvider>
     );

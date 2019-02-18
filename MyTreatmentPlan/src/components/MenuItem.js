@@ -34,6 +34,14 @@ const ImageSquare = props => {
             source={require('../assets/physio.jpg')}
           />
         );
+
+      case 'shoulder.jpg':
+        return (
+          <Image
+            style={styles.menuItemBox}
+            source={require('../assets/shoulder.jpg')}
+          />
+        );
       default:
         return (
           <Image

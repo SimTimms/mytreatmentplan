@@ -5,7 +5,7 @@ import { styles } from '../styles';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { replaceHTMLTags } from '../helpers/index';
-import { FULL_CONTENT, GET_CONTENT } from '../api/queries';
+import { FULL_CONTENT } from '../api/queries';
 
 export default class ContentArea extends React.Component {
   constructor(props) {
@@ -20,39 +20,9 @@ export default class ContentArea extends React.Component {
             text: 'Information',
             style: { color: '#fff' },
           }}
-          containerStyle={{ backgroundColor: '#72b6fd' }}
           rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
         />
         <ScrollView style={styles.scrollView}>
-          <Query query={GET_CONTENT} variables={{ id: this.props.id }}>
-            {({ loading, error, data }) => {
-              if (loading) return <Text>Loading...</Text>;
-              if (error) {
-                return <Text>{error.toString()}</Text>;
-              }
-
-              const header = data.publicDiagnosisContent.name;
-              const page = data.publicDiagnosisContent.pages[0];
-              const pageContent = page.content;
-
-              return (
-                <View>
-                  <Text style={{ fontWeight: 'bold' }}>{header}</Text>
-                  <Text>
-                    {pageContent.map(contentItem => {
-                      if (contentItem.richText !== null) {
-                        return (
-                          <Text key={Math.random(100000)}>
-                            {replaceHTMLTags(contentItem.richText.text)}
-                          </Text>
-                        );
-                      }
-                    })}
-                  </Text>
-                </View>
-              );
-            }}
-          </Query>
           <Query
             query={FULL_CONTENT}
             variables={{ id: this.props.id, typeId: this.props.typeId }}
@@ -61,6 +31,11 @@ export default class ContentArea extends React.Component {
               if (loading) return <Text>Loading...</Text>;
               if (error) {
                 return <Text>{error.toString()}</Text>;
+              }
+
+              const typeName = this.props.typeName;
+              if (!data.getCommonPlan[typeName]) {
+                return <Text>{`No ${typeName}`}</Text>;
               }
 
               return (

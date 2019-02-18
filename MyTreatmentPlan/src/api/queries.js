@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-export const GET_CONTENT = gql`
+export const GET_DIAGNOSIS_CONTENT = gql`
   query diagnosisContent($id: String!) {
     publicDiagnosisContent(id: $id) {
       id
@@ -47,35 +47,20 @@ export const FULL_CONTENT = gql`
     getCommonPlan(diagnosisId: $id, typeId: $typeId) {
       diagnosisId
       options
-
+      exerciseDetails {
+        id
+        name
+        videos
+        images
+        description
+      }
       treatments {
         type {
           name
           id
         }
         name
-        timeline {
-          title
-          subtitle
-          conditionFeature {
-            title
-            duration
-          }
-          timelineNote {
-            subtitle
-            startPeriod
-          }
-        }
-        exerciseList {
-          name
-          description
-          videos
-          images
-        }
-        exerciseLevels {
-          level
-          exercises
-        }
+
         pages {
           title
           header {
