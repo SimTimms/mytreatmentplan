@@ -8,6 +8,7 @@ import DiagnosisContent from './src/views/DiagnosisContent';
 import ExerciseContent from './src/views/ExerciseContent';
 import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
+import { AsyncStorage, Alert } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,26 @@ export default class App extends React.Component {
       view: 'affectedArea',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
+      textInputData: '',
+      exercises: [],
     };
   }
+
+  async componentDidMount() {
+    await AsyncStorage.getItem('exerciseArray').then(value =>
+      this.setState({ exercises: value || [] }),
+    );
+  }
+
+  setValueLocally = exerciseId => {
+    let exerciseArray = this.state.exercises;
+    if (!exerciseArray.includes(exerciseId)) {
+      exerciseArray.push(exerciseId);
+    }
+    AsyncStorage.setItem('exerciseArray', exerciseArray).then(
+      this.setState({ exercises: exerciseArray }),
+    );
+  };
 
   render() {
     function LoadView(props) {
@@ -45,12 +64,13 @@ export default class App extends React.Component {
           );
 
         case 'exercises':
-          console.log(props);
           return (
             <ExerciseContent
               id={props.diagnosisId}
               typeName="exercises"
               onClickVar={changeView}
+              setValueLocally={props.setValueLocally}
+              doneExercises={props.doneExercises}
             />
           );
 
@@ -116,10 +136,12 @@ export default class App extends React.Component {
     return (
       <ApolloProvider client={client}>
         <LoadView
+          doneExercises={this.state.exercises}
           view={this.state.view}
           diagnosisId={this.state.diagnosisId}
           bodyId={this.state.bodyId}
           style={{ flex: 1, backgroundColor: '#222' }}
+          setValueLocally={this.setValueLocally}
         />
       </ApolloProvider>
     );

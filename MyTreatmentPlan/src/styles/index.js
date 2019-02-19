@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  exerciseCard: { width: '100%', height: 300 },
+  exerciseCard: { width: 120, height: 200 },
   bodyPartCard: { height: 100 },
   diagnosisCard: { height: 120 },
   menuCard: { height: 120 },
@@ -67,6 +67,21 @@ export const styles = StyleSheet.create({
   },
   cardTitle: {
     color: '#FFF',
+    fontSize: 14,
+    fontWeight: '300',
+    textAlign: 'center',
+    height: 32,
+    marginTop: 10,
+  },
+  exerciseText: {
+    color: '#000',
+    fontSize: 10,
+    fontWeight: '300',
+    textAlign: 'center',
+    flexGrow: 1,
+  },
+  exerciseTitle: {
+    color: '#000',
     fontSize: 14,
     fontWeight: '300',
     textAlign: 'center',

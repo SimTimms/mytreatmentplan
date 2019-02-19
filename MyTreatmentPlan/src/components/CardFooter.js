@@ -43,6 +43,30 @@ export const CardFooter = props => {
           </View>
         );
 
+      case 'exercise':
+        return (
+          <View
+            style={{
+              paddingBottom: 10,
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Icon
+              name={props.checked ? 'star' : 'play-arrow'}
+              type="material"
+              color={props.gradientColor}
+              size={24}
+            />
+            <Text style={{ marginLeft: 10 }}>
+              {props.checked ? 'Done' : 'Start'}
+            </Text>
+          </View>
+        );
+
       default:
         const progressValue = Math.floor(Math.random() * 100) + 1;
         let isReading =

@@ -12,7 +12,7 @@ import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { FULL_CONTENT } from '../api/queries';
 import { CardFooter } from '../components/CardFooter';
-import { CardWrapper } from '../components/CardWrapper';
+import { ExerciseCardWrapper } from '../components/ExerciseCardWrapper';
 
 export default class ExerciseContent extends React.Component {
   constructor(props) {
@@ -58,57 +58,29 @@ export default class ExerciseContent extends React.Component {
                   {data.getCommonPlan[0].exerciseDetails.map(
                     (exercise, index) => {
                       //TODO: BAD BAD BAD, fix this later with an alogrthm
-                      const colorArray = [
-                        ['#FAD961', '#F76B1C'],
-                        ['#6BE7FF', '#8DBBFF'],
-                        ['#B4EC51', '#429321'],
-                        ['#C86DD7', '#3023AE'],
-                        ['#F5515F', '#9F041B'],
-                        ['#FAD961', '#F76B1C'],
-                        ['#6BE7FF', '#8DBBFF'],
-                        ['#B4EC51', '#429321'],
-                        ['#C86DD7', '#3023AE'],
-                        ['#F5515F', '#9F041B'],
-                        ['#FAD961', '#F76B1C'],
-                        ['#6BE7FF', '#8DBBFF'],
-                        ['#B4EC51', '#429321'],
-                        ['#C86DD7', '#3023AE'],
-                      ];
-                      const borderArray = [
-                        ['#F7DE85', '#C75413'],
-                        ['#A6F1FF', '#5185D0'],
-                        ['#CCEF8D', '#326D1A'],
-                        ['#C86DD7', '#241987'],
-                        ['#F5838C', '#700313'],
-                        ['#F7DE85', '#C75413'],
-                        ['#A6F1FF', '#5185D0'],
-                        ['#CCEF8D', '#326D1A'],
-                        ['#C86DD7', '#241987'],
-                        ['#F5838C', '#700313'],
-                        ['#F7DE85', '#C75413'],
-                        ['#A6F1FF', '#5185D0'],
-                        ['#CCEF8D', '#326D1A'],
-                        ['#C86DD7', '#241987'],
-                        ['#F5838C', '#700313'],
-                      ];
-
-                      let gradient = colorArray[index];
-                      let gradientBorder = borderArray[index];
+                      let colorBorder = '#6BE7FF';
+                      let bgColor = '#A6F1FF';
 
                       const exerciseName = exercise.name;
                       const exerciseDescription = exercise.description;
+                      const exerciseDone = this.props.doneExercises
+                        ? this.props.doneExercises.includes(exercise.id)
+                        : false;
 
                       return (
                         <TouchableOpacity
                           style={[styles.card, styles.exerciseCard]}
                           key={exercise.id}
+                          onPress={() => {
+                            this.props.setValueLocally(exercise.id);
+                          }}
                         >
-                          <CardWrapper
+                          <ExerciseCardWrapper
                             parentStyle={styles.exerciseCard}
                             onClickVar={this.props.onClickVar}
                             objectIn={exercise}
-                            gradientBorder={gradientBorder}
-                            gradient={gradient}
+                            borderColor={colorBorder}
+                            bgColor={bgColor}
                             title={exerciseName}
                             summary={exerciseDescription}
                             style={{ flex: 1, width: 200 }}
@@ -116,7 +88,7 @@ export default class ExerciseContent extends React.Component {
                             <View
                               style={{
                                 width: '100%',
-                                height: 200,
+                                height: 88,
                                 overflow: 'hidden',
                               }}
                             >
@@ -124,14 +96,15 @@ export default class ExerciseContent extends React.Component {
                                 source={{
                                   uri: exercise.videos[0],
                                 }}
-                                style={{ height: 200, marginBottom: 20 }}
+                                style={{ height: 88, marginBottom: 20 }}
                               />
                             </View>
                             <CardFooter
-                              gradientColor={gradient}
+                              gradientColor={bgColor}
                               footerType="exercise"
+                              checked={exerciseDone}
                             />
-                          </CardWrapper>
+                          </ExerciseCardWrapper>
                         </TouchableOpacity>
                       );
                     },
