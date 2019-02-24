@@ -2,18 +2,33 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   TouchableOpacity,
   Text,
   ImageBackground,
 } from 'react-native';
-import { Header } from 'react-native-elements';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    function ExistingButton({ tpArray, clickButton }) {
+      if (tpArray.length > 0) {
+        return (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              clickButton('dashboardMenu');
+            }}
+          >
+            <Text style={styles.buttonText}>Existing</Text>
+          </TouchableOpacity>
+        );
+      } else {
+        return <View />;
+      }
+    }
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -77,8 +92,12 @@ export default class App extends Component {
                   this.props.onClickVar('affectedArea');
                 }}
               >
-                <Text style={styles.buttonText}>START</Text>
+                <Text style={styles.buttonText}>New Plan</Text>
               </TouchableOpacity>
+              <ExistingButton
+                tpArray={this.props.tpArray}
+                clickButton={this.props.onClickVar}
+              />
             </View>
           </View>
         </ImageBackground>

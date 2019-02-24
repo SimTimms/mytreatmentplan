@@ -23,10 +23,4 @@ export const optionsArray = [
     image: 'physio.jpg',
     keyName: 'referred',
   },
-  {
-    name: 'Exercises',
-    id: '5a82cb1c8ff6fb08a0334a9c',
-    image: 'running.jpg',
-    keyName: 'exercises',
-  },
 ];

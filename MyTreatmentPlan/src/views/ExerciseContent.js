@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import {
   View,
@@ -13,12 +14,14 @@ import { TopMenuBar } from '../components/TopBarMenu';
 import { FULL_CONTENT } from '../api/queries';
 import { CardFooter } from '../components/CardFooter';
 import { ExerciseCardWrapper } from '../components/ExerciseCardWrapper';
+import { exerciseSubmit } from '../store/actions';
 
-export default class ExerciseContent extends React.Component {
+class ExerciseContent extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <Header
@@ -72,7 +75,7 @@ export default class ExerciseContent extends React.Component {
                           style={[styles.card, styles.exerciseCard]}
                           key={exercise.id}
                           onPress={() => {
-                            this.props.setValueLocally(exercise.id);
+                            this.props.exerciseSubmit(exercise.id);
                           }}
                         >
                           <ExerciseCardWrapper
@@ -118,3 +121,18 @@ export default class ExerciseContent extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps);
+  return {
+    id: ownProps.id,
+    typeName: ownProps.typeName,
+    onClickVar: ownProps.onClickVar,
+    doneExercises: state.exercises,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { exerciseSubmit },
+)(ExerciseContent);

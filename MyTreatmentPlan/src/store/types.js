@@ -1,0 +1,1 @@
+export const EXERCISE_SUBMIT = 'EXERCISE_SUBMIT';

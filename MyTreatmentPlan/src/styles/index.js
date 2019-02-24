@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  treatmentPlan: { width: '100%', height: 94 },
   exerciseCard: { width: 120, height: 200 },
-  bodyPartCard: { height: 100 },
-  diagnosisCard: { height: 120 },
+  statCard: { width: '100%', height: 80 },
+  bodyPartCard: { height: 86 },
+  diagnosisCard: { height: 100 },
   menuCard: { height: 120 },
+  overlay: {
+    backgroundColor: '#0A1828',
+    height: '100%',
+    width: '100%',
+    opacity: 0.9,
+    padding: 0,
+  },
   card: {
     width: 130,
     height: 140,
@@ -18,9 +27,6 @@ export const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     width: '100%',
-    margin: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   container: {
     flex: 1,

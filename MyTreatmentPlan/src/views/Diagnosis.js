@@ -5,7 +5,6 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { GET_DIAGNOSIS } from '../api/queries';
-import { CardFooter } from '../components/CardFooter';
 import { CardWrapper } from '../components/CardWrapper';
 
 export default class App extends React.Component {
@@ -23,7 +22,7 @@ export default class App extends React.Component {
             style: { color: '#fff' },
           }}
           containerStyle={{ backgroundColor: 'transparent' }}
-          rightComponent={<TopMenuBar onClickAction={this.props.onClickVar} />}
+          rightComponent={<TopMenuBar onClickAction={this.props.rightMenu} />}
         />
         <ScrollView style={styles.scrollView}>
           <Query query={GET_DIAGNOSIS} variables={{ id: this.props.id }}>
@@ -87,19 +86,31 @@ export default class App extends React.Component {
                         style={[styles.card, styles.diagnosisCard]}
                         key={diagnosis.id}
                         onPress={() => {
-                          this.props.onClickVar(diagnosis.id, 'diagnosis');
+                          this.props.setDiagnosis(
+                            diagnosis.id,
+                            'diagnosis',
+                            diagnosis.name,
+                          );
                         }}
                       >
                         <CardWrapper
                           parentStyle={styles.diagnosisCard}
-                          onClickVar={this.props.onClickVar}
                           objectIn={diagnosis}
                           gradientBorder={gradientBorder}
                           gradient={gradient}
-                          title={diagnosis.name}
-                          summary="Test summary here"
+                          title=""
+                          summary=""
                         >
-                          <CardFooter gradientColor={gradient} />
+                          <Text
+                            style={{
+                              color: '#FFF',
+                              marginBottom: 20,
+                              textAlign: 'center',
+                              width: '100%',
+                            }}
+                          >
+                            {diagnosis.name}
+                          </Text>
                         </CardWrapper>
                       </TouchableOpacity>
                     );

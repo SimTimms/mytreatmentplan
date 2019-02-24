@@ -6,19 +6,28 @@ import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
 import DiagnosisContent from './src/views/DiagnosisContent';
 import ExerciseContent from './src/views/ExerciseContent';
+import Dashboard from './src/views/Dashboard';
+import DashboardMenu from './src/views/DashboardMenu';
 import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage } from 'react-native';
+import { createStore } from 'redux';
+import { Provider, connect } from 'react-redux';
+import reducers from './src/store/reducers/';
+
+const store = createStore(reducers);
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'affectedArea',
+      view: 'splash',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
       textInputData: '',
       exercises: [],
+      treatmentPlans: [],
+      currentPlan: null,
     };
   }
 
@@ -26,16 +35,27 @@ export default class App extends React.Component {
     await AsyncStorage.getItem('exerciseArray').then(value =>
       this.setState({ exercises: value || [] }),
     );
+    await AsyncStorage.getItem('tpArray').then(value =>
+      this.setState({ treatmentPlans: value || [] }),
+    );
   }
 
   setValueLocally = exerciseId => {
     let exerciseArray = this.state.exercises;
     if (!exerciseArray.includes(exerciseId)) {
-      exerciseArray.push(exerciseId);
+      exerciseArray = [...exerciseArray, exerciseId];
     }
     AsyncStorage.setItem('exerciseArray', exerciseArray).then(
       this.setState({ exercises: exerciseArray }),
     );
+  };
+
+  setTreatmentPlan = id => {
+    console.log(id);
+    AsyncStorage.setItem('currentPlan', id).then(
+      this.setState({ currentPlan: id }),
+    );
+    this.setState({ view: 'dashboard' });
   };
 
   render() {
@@ -45,13 +65,27 @@ export default class App extends React.Component {
           return (
             <Diagnosis
               id={props.bodyId}
-              onClickVar={setDiagnosis}
+              setDiagnosis={setDiagnosis}
+              rightMenu={changeView}
               style={{ flex: 1 }}
             />
           );
 
+        case 'dashboard':
+          return <Dashboard onClickVar={changeView} menuClick={changeView} />;
+
+        case 'dashboardMenu':
+          return (
+            <DashboardMenu
+              tpArray={props.treatmentPlans}
+              setTreatmentPlan={props.setTreatmentPlan}
+              menuClick={changeView}
+              doneExercises={props.doneExercises}
+            />
+          );
+
         case 'affectedArea':
-          return <BodyPart onClickVar={setBodyPart} />;
+          return <BodyPart onClickVar={setBodyPart} menuClick={changeView} />;
 
         case 'treatments':
           return (
@@ -66,10 +100,9 @@ export default class App extends React.Component {
         case 'exercises':
           return (
             <ExerciseContent
-              id={props.diagnosisId}
+              id={props.currentPlan}
               typeName="exercises"
               onClickVar={changeView}
-              setValueLocally={props.setValueLocally}
               doneExercises={props.doneExercises}
             />
           );
@@ -113,7 +146,12 @@ export default class App extends React.Component {
           return <MenuArea id={props.diagnosisId} onClickVar={viewSection} />;
 
         default:
-          return <Splashscreen onClickVar={changeView} />;
+          return (
+            <Splashscreen
+              onClickVar={changeView}
+              tpArray={props.treatmentPlans}
+            />
+          );
       }
     }
 
@@ -125,8 +163,20 @@ export default class App extends React.Component {
       this.setState({ bodyId: id, view: 'diagnosis' });
     };
 
-    const setDiagnosis = id => {
-      this.setState({ diagnosisId: id, view: 'menu' });
+    const setDiagnosis = (id, __, name) => {
+      let tpArray = this.state.treatmentPlans;
+      if (!tpArray.includes({ id, name })) {
+        tpArray = [...tpArray, { id, name }];
+      }
+
+      AsyncStorage.setItem('tpArray', tpArray).then(
+        this.setState({ treatmentPlans: tpArray }),
+      );
+      AsyncStorage.setItem('currentPlan', id).then(
+        this.setState({ currentPlan: id }),
+      );
+
+      this.setState({ diagnosisId: id, view: 'dashboard' });
     };
 
     const viewSection = (id, category) => {
@@ -134,16 +184,20 @@ export default class App extends React.Component {
     };
 
     return (
-      <ApolloProvider client={client}>
-        <LoadView
-          doneExercises={this.state.exercises}
-          view={this.state.view}
-          diagnosisId={this.state.diagnosisId}
-          bodyId={this.state.bodyId}
-          style={{ flex: 1, backgroundColor: '#222' }}
-          setValueLocally={this.setValueLocally}
-        />
-      </ApolloProvider>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <LoadView
+            doneExercises={this.state.exercises}
+            view={this.state.view}
+            diagnosisId={this.state.diagnosisId}
+            bodyId={this.state.bodyId}
+            style={{ flex: 1, backgroundColor: '#222' }}
+            setTreatmentPlan={this.setTreatmentPlan}
+            treatmentPlans={this.state.treatmentPlans}
+            currentPlan={this.state.currentPlan}
+          />
+        </ApolloProvider>
+      </Provider>
     );
   }
 }
