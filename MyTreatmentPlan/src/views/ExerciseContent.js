@@ -7,6 +7,7 @@ import {
   ScrollView,
   WebView,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import { styles } from '../styles';
 import { Header } from 'react-native-elements';
@@ -66,7 +67,7 @@ class ExerciseContent extends React.Component {
                       (exercise, index) => {
                         //TODO: BAD BAD BAD, fix this later with an alogrthm
                         let colorBorder = '#6BE7FF';
-                        let bgColor = '#A6F1FF';
+                        let bgColor = '#FFF';
 
                         const exerciseName = exercise.name;
                         const exerciseDescription = exercise.description;
