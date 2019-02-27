@@ -12,7 +12,7 @@ import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
 import { AsyncStorage } from 'react-native';
 import { createStore } from 'redux';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import reducers from './src/store/reducers/';
 
 const store = createStore(reducers);

@@ -9,6 +9,7 @@ import { styles } from '../styles';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import DashboardFooter from '../components/DashboardFooter';
+import ExerciseStats from '../components/ExerciseStats';
 import { DashboardWrapper } from '../components/DashboardWrapper';
 
 export default class Dashboard extends React.Component {
@@ -52,10 +53,10 @@ export default class Dashboard extends React.Component {
                   parentStyle={styles.statCard}
                   gradientBorder={['#F7DE85', '#C75413']}
                   gradient={['#333', '#333']}
-                  title="Exercise"
-                  summary="Your Results"
+                  title="Exercises"
+                  summary=""
                 >
-                  <DashboardFooter
+                  <ExerciseStats
                     gradientColor={['#F7DE85', '#C75413']}
                     footerType="exercises"
                   />

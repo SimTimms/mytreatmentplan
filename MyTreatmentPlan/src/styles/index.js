@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   treatmentPlan: { width: '100%', height: 94 },
   exerciseCard: { width: 120, height: 200 },
-  statCard: { width: '100%', height: 80 },
+  statCard: { width: '90%', height: 120, margin: 10 },
   bodyPartCard: { height: 86 },
   diagnosisCard: { height: 100 },
   menuCard: { height: 120 },

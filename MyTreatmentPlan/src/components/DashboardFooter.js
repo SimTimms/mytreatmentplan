@@ -11,31 +11,6 @@ class DashboardFooter extends React.Component {
 
   render() {
     switch (this.props.footerType) {
-      case 'exercises':
-        return (
-          <View
-            style={{
-              paddingBottom: 10,
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
-            <Icon
-              name="fitness-center"
-              type="material"
-              color={this.props.gradientColor[0]}
-              size={38}
-            />
-
-            <Text style={{ color: '#FFF', width: '100%' }}>
-              {this.props.doneExercises.length} Exercises Complete
-            </Text>
-          </View>
-        );
-
       case 'localServices':
         return (
           <View

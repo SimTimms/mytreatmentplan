@@ -4,16 +4,13 @@ import { View, Text, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo';
 
 export const ExerciseCardWrapper = props => {
-  const innerBG =
-    props.innerWrapper !== 'dark' ? props.gradient : ['#0A1828', '#0A1828'];
-
   const innerHeight = props.parentStyle ? props.parentStyle.height : 100;
 
   return (
     <View>
       <View
         style={{
-          backgroundColor: '#eee',
+          backgroundColor: '#3FA4EE',
           height: '100%',
           alignItems: 'center',
           borderRadius: 10,
@@ -24,7 +21,6 @@ export const ExerciseCardWrapper = props => {
       >
         <View
           style={{
-            backgroundColor: '#fff',
             height: innerHeight,
             alignItems: 'center',
             borderTopLeftRadius: 0,

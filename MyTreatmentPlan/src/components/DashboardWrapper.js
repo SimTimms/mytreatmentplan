@@ -10,35 +10,32 @@ export const DashboardWrapper = props => {
   const innerHeight = props.parentStyle ? props.parentStyle.height - 4 : 100;
 
   return (
-    <View>
+    <View
+      style={{
+        height: '100%',
+        alignItems: 'center',
+        borderRadius: 10,
+        width: '100%',
+        overflow: 'hidden',
+        padding: 2,
+      }}
+    >
       <LinearGradient
-        colors={props.gradientBorder}
+        colors={innerBG}
         style={{
-          height: '100%',
+          height: innerHeight,
           alignItems: 'center',
-          borderRadius: 10,
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
           width: '100%',
-          overflow: 'hidden',
-          padding: 2,
+          opacity: 0.9,
+          paddingBottom: 20,
         }}
       >
-        <LinearGradient
-          colors={innerBG}
-          style={{
-            height: innerHeight,
-            alignItems: 'center',
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            borderBottomLeftRadius: 10,
-            borderBottomRightRadius: 10,
-            width: '100%',
-            opacity: 0.9,
-            paddingBottom: 20,
-          }}
-        >
-          <Text style={styles.cardTitle}>{props.title}</Text>
-          {props.children}
-        </LinearGradient>
+        <Text style={styles.cardTitle}>{props.title}</Text>
+        {props.children}
       </LinearGradient>
     </View>
   );
