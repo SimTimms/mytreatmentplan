@@ -19,7 +19,7 @@ class ExerciseStats extends React.Component {
           justifyContent: 'space-around',
         }}
       >
-        <SingleIconStat content="2" title="Level" />
+        <SingleIconStat content="2" title="Level" icon="star" />
         <SingleStat content="Days" statNumber="10" title="Streak" />
         <SingleStat
           content="Total"

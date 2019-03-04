@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  statRight: {
+    alignSelf: 'flex-end',
+  },
   statInnerWrapper: {
     width: 54,
     height: 54,

@@ -41,7 +41,7 @@ export const CardWrapper = props => {
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10,
               width: '100%',
-              opacity: 0.9,
+              opacity: 1,
               paddingBottom: 10,
             }}
           >

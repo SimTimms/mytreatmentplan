@@ -13,7 +13,7 @@ import { styles } from '../styles';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { FULL_CONTENT } from '../api/queries';
-import { CardFooter } from '../components/CardFooter';
+import { ExerciseFooter } from '../components/ExerciseFooter';
 import { ExerciseCardWrapper } from '../components/ExerciseCardWrapper';
 import { exerciseSubmit } from '../store/actions';
 
@@ -96,7 +96,7 @@ class ExerciseContent extends React.Component {
                               <View
                                 style={{
                                   width: '100%',
-                                  height: 88,
+                                  height: 148,
                                   overflow: 'hidden',
                                 }}
                               >
@@ -104,13 +104,17 @@ class ExerciseContent extends React.Component {
                                   source={{
                                     uri: exercise.videos[0],
                                   }}
-                                  style={{ height: 88, marginBottom: 20 }}
+                                  style={{ height: 148 }}
                                 />
                               </View>
-                              <CardFooter
+                              <ExerciseFooter
                                 gradientColor={bgColor}
                                 footerType="exercise"
                                 checked={exerciseDone}
+                                style={{
+                                  marginTop: -80,
+                                  width: 50,
+                                }}
                               />
                             </ExerciseCardWrapper>
                           </TouchableOpacity>

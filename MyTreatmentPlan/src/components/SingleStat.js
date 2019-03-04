@@ -5,11 +5,11 @@ import { styles } from '../styles/stats';
 
 export const SingleIconStat = props => {
   return (
-    <View style={styles.statWrapper}>
+    <View style={[styles.statWrapper, props.addCSS]}>
       <Text style={styles.statTitle}>{props.title}</Text>
       <View style={styles.statInnerWrapper}>
         <Icon
-          name="star"
+          name={props.icon}
           type="material"
           color="#fff"
           size={42}

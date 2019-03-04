@@ -85,13 +85,15 @@ export const styles = StyleSheet.create({
     fontWeight: '300',
     textAlign: 'center',
     flexGrow: 1,
+    marginTop: 10,
+    marginBottom: 10,
   },
   exerciseTitle: {
     color: '#000',
     fontSize: 14,
     fontWeight: '300',
     textAlign: 'center',
-    height: 32,
+    height: 16,
     marginTop: 10,
   },
   bold: {

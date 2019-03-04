@@ -1,7 +1,6 @@
 import React from 'react';
 import { styles } from '../styles';
-import { View, Text, ImageBackground } from 'react-native';
-import { LinearGradient } from 'expo';
+import { View, Text } from 'react-native';
 
 export const ExerciseCardWrapper = props => {
   const innerHeight = props.parentStyle ? props.parentStyle.height : 100;
@@ -9,7 +8,7 @@ export const ExerciseCardWrapper = props => {
   return (
     <View
       style={{
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.3)',
         height: '100%',
         alignItems: 'center',
         borderRadius: 10,
@@ -27,7 +26,6 @@ export const ExerciseCardWrapper = props => {
           borderBottomLeftRadius: 10,
           borderBottomRightRadius: 10,
           width: '100%',
-          opacity: 0.9,
           paddingBottom: 10,
         }}
       >

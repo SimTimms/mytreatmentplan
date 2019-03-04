@@ -21,13 +21,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'splash',
+      view: 'exercises',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
       textInputData: '',
       exercises: [],
-      treatmentPlans: [],
-      currentPlan: null,
+      treatmentPlans: ['5ad89784f3ed1c24fcbef9cf'],
+      currentPlan: '5ad89784f3ed1c24fcbef9cf',
     };
   }
 
