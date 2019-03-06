@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
 export default class App extends Component {
   constructor(props) {
@@ -31,76 +25,71 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={require('../assets/splash.jpg')}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <View style={styles.container}>
-            <Text
-              style={{
-                color: 'white',
-                fontWeight: '300',
-                fontSize: 26,
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                width: '100%',
-                paddingTop: 10,
-                textAlign: 'center',
+        <View style={styles.container}>
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: '300',
+              fontSize: 26,
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              width: '100%',
+              paddingTop: 10,
+              textAlign: 'center',
+            }}
+          >
+            <Text style={{ color: '#72b6fd' }}>my</Text> treatment plan
+          </Text>
+          <Text
+            style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontWeight: '300',
+              fontSize: 16,
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              width: '100%',
+              paddingBottom: 10,
+              textAlign: 'center',
+            }}
+          >
+            recover yourself
+          </Text>
+          <Text
+            style={{
+              color: '#72b6fd',
+              fontWeight: '300',
+              fontSize: 16,
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              width: '100%',
+              paddingBottom: 10,
+              textAlign: 'center',
+            }}
+          >
+            MSK edition
+          </Text>
+          <View
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.1)',
+              width: '100%',
+              paddingBottom: 10,
+              textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.props.onClickVar('affectedArea');
               }}
             >
-              <Text style={{ color: '#72b6fd' }}>my</Text> treatment plan
-            </Text>
-            <Text
-              style={{
-                color: 'rgba(255,255,255,0.5)',
-                fontWeight: '300',
-                fontSize: 16,
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                width: '100%',
-                paddingBottom: 10,
-                textAlign: 'center',
-              }}
-            >
-              recover yourself
-            </Text>
-            <Text
-              style={{
-                color: '#72b6fd',
-                fontWeight: '300',
-                fontSize: 16,
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                width: '100%',
-                paddingBottom: 10,
-                textAlign: 'center',
-              }}
-            >
-              MSK edition
-            </Text>
-            <View
-              style={{
-                backgroundColor: 'rgba(0,0,0,0.1)',
-                width: '100%',
-                paddingBottom: 10,
-                textAlign: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.onClickVar('affectedArea');
-                }}
-              >
-                <Text style={styles.buttonText}>New Plan</Text>
-              </TouchableOpacity>
-              <ExistingButton
-                tpArray={this.props.tpArray}
-                clickButton={this.props.onClickVar}
-              />
-            </View>
+              <Text style={styles.buttonText}>New Plan</Text>
+            </TouchableOpacity>
+            <ExistingButton
+              tpArray={this.props.tpArray}
+              clickButton={this.props.onClickVar}
+            />
           </View>
-        </ImageBackground>
+        </View>
       </View>
     );
   }

@@ -16,7 +16,7 @@ export const CardWrapper = props => {
         style={{
           height: '100%',
           alignItems: 'center',
-          borderRadius: 10,
+          borderRadius: 5,
           width: '100%',
           overflow: 'hidden',
           padding: 1,
@@ -28,7 +28,7 @@ export const CardWrapper = props => {
             width: '100%',
             height: '100%',
           }}
-          imageStyle={{ borderRadius: 10 }}
+          imageStyle={{ borderRadius: 5 }}
         >
           <Text style={styles.cardTitle}>{props.title}</Text>
           <LinearGradient
@@ -38,8 +38,8 @@ export const CardWrapper = props => {
               alignItems: 'center',
               borderTopLeftRadius: 0,
               borderTopRightRadius: 0,
-              borderBottomLeftRadius: 10,
-              borderBottomRightRadius: 10,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: 5,
               width: '100%',
               opacity: 1,
               paddingBottom: 10,

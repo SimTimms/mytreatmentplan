@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-  Text,
-} from 'react-native';
+import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { styles } from '../styles';
 import { bodyParts } from '../data/bodyParts';
 import { Header } from 'react-native-elements';
-import { TopMenuBar } from '../components/TopBarMenu';
-import { CardWrapper } from '../components/CardWrapper';
+import { BodyPartWrapper } from '../components/BodyPartWrapper';
+import { SingleIconButton } from '../components/Buttons';
 
 export default class BodyPart extends React.Component {
   constructor(props) {
@@ -21,94 +15,78 @@ export default class BodyPart extends React.Component {
       <View style={styles.container}>
         <Header
           placement="left"
-          leftComponent={{
-            text: 'Where is the problem ?',
-            style: { color: '#fff' },
-          }}
-          containerStyle={{ backgroundColor: 'transparent' }}
-          rightComponent={<TopMenuBar onClickAction={this.props.menuClick} />}
-        />
-        <ImageBackground
-          source={require('../assets/bg.jpg')}
-          style={{ width: '100%', height: '100%', flex: 1 }}
-        >
-          <ScrollView style={[styles.scrollView, styles.overlay]}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                width: '100%',
-                justifyContent: 'center',
+          leftComponent={
+            <TouchableOpacity
+              style={{ marginLeft: 14 }}
+              onPress={() => {
+                this.props.changeView('splashScreen');
               }}
             >
-              {bodyParts.map((bodyPart, index) => {
-                //TODO: BAD BAD BAD, fix this later with an alogrthm
-                const colorArray = [
-                  ['#FAD961', '#F76B1C'],
-                  ['#6BE7FF', '#8DBBFF'],
-                  ['#B4EC51', '#429321'],
-                  ['#C86DD7', '#3023AE'],
-                  ['#F5515F', '#9F041B'],
-                  ['#FAD961', '#F76B1C'],
-                  ['#6BE7FF', '#8DBBFF'],
-                  ['#B4EC51', '#429321'],
-                  ['#C86DD7', '#3023AE'],
-                  ['#F5515F', '#9F041B'],
-                  ['#FAD961', '#F76B1C'],
-                  ['#6BE7FF', '#8DBBFF'],
-                  ['#B4EC51', '#429321'],
-                  ['#C86DD7', '#3023AE'],
-                ];
-                const borderArray = [
-                  ['#F7DE85', '#C75413'],
-                  ['#A6F1FF', '#5185D0'],
-                  ['#CCEF8D', '#326D1A'],
-                  ['#C86DD7', '#241987'],
-                  ['#F5838C', '#700313'],
-                  ['#F7DE85', '#C75413'],
-                  ['#A6F1FF', '#5185D0'],
-                  ['#CCEF8D', '#326D1A'],
-                  ['#C86DD7', '#241987'],
-                  ['#F5838C', '#700313'],
-                  ['#F7DE85', '#C75413'],
-                  ['#A6F1FF', '#5185D0'],
-                  ['#CCEF8D', '#326D1A'],
-                  ['#C86DD7', '#241987'],
-                  ['#F5838C', '#700313'],
-                ];
+              <SingleIconButton title="BACK" icon="chevron-left" />
+            </TouchableOpacity>
+          }
+          containerStyle={{ backgroundColor: 'transparent' }}
+          rightComponent={<Text>LOGO</Text>}
+        />
 
-                let gradient = colorArray[index];
-                let gradientBorder = borderArray[index];
+        <ScrollView style={styles.scrollView}>
+          <Text
+            style={{
+              backgroundColor: '#EDEDED',
+              borderRadius: 5,
+              paddingTop: 15,
+              paddingBottom: 15,
+              textAlign: 'center',
+              alignSelf: 'center',
+              marginTop: 20,
+              marginBottom: 10,
+              width: '90%',
+            }}
+          >
+            What is affected?
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              width: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            {bodyParts.map((bodyPart, index) => {
+              let gradient = ['#4a4a4a', '#4a4a4a'];
+              let gradientBorder = ['#4a4a4a', '#4a4a4a'];
 
-                return (
-                  <TouchableOpacity
-                    style={[styles.card, styles.bodyPartCard]}
-                    key={bodyPart.id}
-                    bodyId={bodyPart.id}
-                    onPress={() => {
-                      this.props.onClickVar(bodyPart.id, 'diagnosis');
-                    }}
+              return (
+                <TouchableOpacity
+                  style={[styles.card, styles.bodyPartCard]}
+                  key={bodyPart.id}
+                  bodyId={bodyPart.id}
+                  onPress={() => {
+                    this.props.onClickVar(bodyPart.id, 'diagnosis');
+                  }}
+                >
+                  <BodyPartWrapper
+                    parentStyle={styles.bodyPartCard}
+                    onClickVar={this.props.onClickVar}
+                    objectIn={bodyPart}
+                    gradientBorder={gradientBorder}
+                    gradient={gradient}
+                    title=""
+                    summary=""
                   >
-                    <CardWrapper
-                      parentStyle={styles.bodyPartCard}
-                      onClickVar={this.props.onClickVar}
-                      objectIn={bodyPart}
-                      gradientBorder={gradientBorder}
-                      gradient={gradient}
-                      title=""
-                      summary=""
+                    <Text
+                      style={{ color: '#FFF', marginBottom: 26, fontSize: 16 }}
                     >
-                      <Text style={{ color: '#FFF', marginBottom: 20 }}>
-                        {bodyPart.name}
-                      </Text>
-                    </CardWrapper>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          </ScrollView>
-        </ImageBackground>
+                      {bodyPart.name}
+                    </Text>
+                  </BodyPartWrapper>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </ScrollView>
       </View>
     );
   }

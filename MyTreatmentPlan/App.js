@@ -1,6 +1,6 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import Splashscreen from './src/views/Splashscreen';
+import SplashscreenLite from './src/views/SplashscreenLite';
 import Diagnosis from './src/views/Diagnosis';
 import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
@@ -21,7 +21,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'exercises',
+      view: 'splashcreen',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
       textInputData: '',
@@ -85,7 +85,7 @@ export default class App extends React.Component {
           );
 
         case 'affectedArea':
-          return <BodyPart onClickVar={setBodyPart} menuClick={changeView} />;
+          return <BodyPart onClickVar={setBodyPart} changeView={changeView} />;
 
         case 'treatments':
           return (
@@ -147,8 +147,8 @@ export default class App extends React.Component {
 
         default:
           return (
-            <Splashscreen
-              onClickVar={changeView}
+            <SplashscreenLite
+              changeView={changeView}
               tpArray={props.treatmentPlans}
             />
           );

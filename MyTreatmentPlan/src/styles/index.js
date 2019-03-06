@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   treatmentPlan: { width: '100%', height: 94 },
   exerciseCard: { width: '90%', height: 200 },
   statCard: { width: '90%', height: 120, margin: 10 },
-  bodyPartCard: { height: 86 },
+  bodyPartCard: { height: 106 },
   diagnosisCard: { height: 100 },
   menuCard: { height: 120 },
   overlay: {
@@ -27,12 +27,13 @@ export const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     width: '100%',
+    textAlign: 'center',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0A1828',
+    backgroundColor: '#fff',
   },
   logo: {
     height: 32,
@@ -66,7 +67,7 @@ export const styles = StyleSheet.create({
   },
   cardText: {
     color: '#FFF',
-    fontSize: 10,
+    fontSize: 14,
     fontWeight: '300',
     textAlign: 'center',
     flexGrow: 1,
