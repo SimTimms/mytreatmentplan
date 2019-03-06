@@ -5,7 +5,9 @@ export const styles = StyleSheet.create({
   exerciseCard: { width: '90%', height: 200 },
   statCard: { width: '90%', height: 120, margin: 10 },
   bodyPartCard: { height: 106 },
-  diagnosisCard: { height: 100 },
+  diagnosisCard: {
+    height: 70,
+  },
   menuCard: { height: 120 },
   overlay: {
     backgroundColor: '#0A1828',

@@ -5,6 +5,8 @@ import { bodyParts } from '../data/bodyParts';
 import { Header } from 'react-native-elements';
 import { BodyPartWrapper } from '../components/BodyPartWrapper';
 import { SingleIconButton } from '../components/Buttons';
+import InfoText from '../components/InfoText';
+import PageWrapper from '../components/PageWrapper';
 
 export default class BodyPart extends React.Component {
   constructor(props) {
@@ -30,30 +32,9 @@ export default class BodyPart extends React.Component {
         />
 
         <ScrollView style={styles.scrollView}>
-          <Text
-            style={{
-              backgroundColor: '#EDEDED',
-              borderRadius: 5,
-              paddingTop: 15,
-              paddingBottom: 15,
-              textAlign: 'center',
-              alignSelf: 'center',
-              marginTop: 20,
-              marginBottom: 10,
-              width: '90%',
-            }}
-          >
-            What is affected?
-          </Text>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              width: '100%',
-              justifyContent: 'center',
-            }}
-          >
+          <InfoText text="What is affected?" />
+
+          <PageWrapper>
             {bodyParts.map((bodyPart, index) => {
               let gradient = ['#4a4a4a', '#4a4a4a'];
               let gradientBorder = ['#4a4a4a', '#4a4a4a'];
@@ -85,7 +66,7 @@ export default class BodyPart extends React.Component {
                 </TouchableOpacity>
               );
             })}
-          </View>
+          </PageWrapper>
         </ScrollView>
       </View>
     );

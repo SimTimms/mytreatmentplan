@@ -5,7 +5,10 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { GET_DIAGNOSIS } from '../api/queries';
-import { CardWrapper } from '../components/CardWrapper';
+import { DiagnosisWrapper } from '../components/DiagnosisWrapper';
+import { SingleIconButton } from '../components/Buttons';
+import InfoText from '../components/InfoText';
+import PageWrapper from '../components/PageWrapper';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,14 +20,21 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Header
           placement="left"
-          leftComponent={{
-            text: 'What is your diagnosis?',
-            style: { color: '#fff' },
-          }}
+          leftComponent={
+            <TouchableOpacity
+              style={{ marginLeft: 14 }}
+              onPress={() => {
+                this.props.changeView('affectedArea');
+              }}
+            >
+              <SingleIconButton title="BACK" icon="chevron-left" />
+            </TouchableOpacity>
+          }
           containerStyle={{ backgroundColor: 'transparent' }}
-          rightComponent={<TopMenuBar onClickAction={this.props.rightMenu} />}
+          rightComponent={<Text>LOGO</Text>}
         />
         <ScrollView style={styles.scrollView}>
+          <InfoText text="Do you have a diagnosis?" />
           <Query query={GET_DIAGNOSIS} variables={{ id: this.props.id }}>
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading....</Text>;
@@ -33,54 +43,41 @@ export default class App extends React.Component {
               }
 
               return (
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    width: '100%',
-                    justifyContent: 'center',
-                  }}
-                >
+                <PageWrapper>
+                  <TouchableOpacity
+                    style={[styles.card, styles.diagnosisCard]}
+                    key="no_id"
+                    onPress={() => {
+                      this.props.setDiagnosis(
+                        'no_id',
+                        'diagnosis',
+                        'No Diagnosis',
+                      );
+                    }}
+                  >
+                    <DiagnosisWrapper
+                      parentStyle={styles.diagnosisCard}
+                      gradientBorder={['#4a4a4a', '#4a4a4a']}
+                      gradient={['#4a4a4a', '#4a4a4a']}
+                      title=""
+                      summary=""
+                    >
+                      <Text
+                        style={{
+                          color: '#FFF',
+                          fontSize: 14,
+                          width: '100%',
+                          textAlign: 'center',
+                        }}
+                      >
+                        No Diagnosis
+                      </Text>
+                    </DiagnosisWrapper>
+                  </TouchableOpacity>
+
                   {data.publicBodyPart.options.map((diagnosis, index) => {
-                    //TODO: BAD BAD BAD, fix this later with an alogrthm
-                    const colorArray = [
-                      ['#FAD961', '#F76B1C'],
-                      ['#6BE7FF', '#8DBBFF'],
-                      ['#B4EC51', '#429321'],
-                      ['#C86DD7', '#3023AE'],
-                      ['#F5515F', '#9F041B'],
-                      ['#FAD961', '#F76B1C'],
-                      ['#6BE7FF', '#8DBBFF'],
-                      ['#B4EC51', '#429321'],
-                      ['#C86DD7', '#3023AE'],
-                      ['#F5515F', '#9F041B'],
-                      ['#FAD961', '#F76B1C'],
-                      ['#6BE7FF', '#8DBBFF'],
-                      ['#B4EC51', '#429321'],
-                      ['#C86DD7', '#3023AE'],
-                    ];
-                    const borderArray = [
-                      ['#F7DE85', '#C75413'],
-                      ['#A6F1FF', '#5185D0'],
-                      ['#CCEF8D', '#326D1A'],
-                      ['#C86DD7', '#241987'],
-                      ['#F5838C', '#700313'],
-                      ['#F7DE85', '#C75413'],
-                      ['#A6F1FF', '#5185D0'],
-                      ['#CCEF8D', '#326D1A'],
-                      ['#C86DD7', '#241987'],
-                      ['#F5838C', '#700313'],
-                      ['#F7DE85', '#C75413'],
-                      ['#A6F1FF', '#5185D0'],
-                      ['#CCEF8D', '#326D1A'],
-                      ['#C86DD7', '#241987'],
-                      ['#F5838C', '#700313'],
-                    ];
-
-                    let gradient = colorArray[index];
-                    let gradientBorder = borderArray[index];
-
+                    let gradient = ['#4a4a4a', '#4a4a4a'];
+                    let gradientBorder = ['#4a4a4a', '#4a4a4a'];
                     return (
                       <TouchableOpacity
                         style={[styles.card, styles.diagnosisCard]}
@@ -93,7 +90,7 @@ export default class App extends React.Component {
                           );
                         }}
                       >
-                        <CardWrapper
+                        <DiagnosisWrapper
                           parentStyle={styles.diagnosisCard}
                           objectIn={diagnosis}
                           gradientBorder={gradientBorder}
@@ -104,18 +101,19 @@ export default class App extends React.Component {
                           <Text
                             style={{
                               color: '#FFF',
-                              marginBottom: 20,
-                              textAlign: 'center',
+
+                              fontSize: 14,
                               width: '100%',
+                              textAlign: 'center',
                             }}
                           >
                             {diagnosis.name}
                           </Text>
-                        </CardWrapper>
+                        </DiagnosisWrapper>
                       </TouchableOpacity>
                     );
                   })}
-                </View>
+                </PageWrapper>
               );
             }}
           </Query>

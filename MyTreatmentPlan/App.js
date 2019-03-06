@@ -6,7 +6,7 @@ import BodyPart from './src/views/BodyPart';
 import ContentArea from './src/views/Content';
 import DiagnosisContent from './src/views/DiagnosisContent';
 import ExerciseContent from './src/views/ExerciseContent';
-import Dashboard from './src/views/Dashboard';
+import DashboardLite from './src/views/DashboardLite';
 import DashboardMenu from './src/views/DashboardMenu';
 import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
@@ -72,7 +72,9 @@ export default class App extends React.Component {
           );
 
         case 'dashboard':
-          return <Dashboard onClickVar={changeView} menuClick={changeView} />;
+          return (
+            <DashboardLite onClickVar={changeView} menuClick={changeView} />
+          );
 
         case 'dashboardMenu':
           return (
