@@ -13,6 +13,8 @@ import { styles } from '../styles';
 import { Header } from 'react-native-elements';
 import { TopMenuBar } from '../components/TopBarMenu';
 import { FULL_CONTENT } from '../api/queries';
+
+import { SingleIconButton } from '../components/Buttons';
 import { ExerciseFooter } from '../components/ExerciseFooter';
 import { ExerciseCardWrapper } from '../components/ExerciseCardWrapper';
 import { exerciseSubmit } from '../store/actions';

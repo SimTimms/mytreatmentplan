@@ -8,30 +8,33 @@ export const ExerciseCardWrapper = props => {
   return (
     <View
       style={{
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: props.borderColor,
         height: '100%',
         alignItems: 'center',
         borderRadius: 10,
         width: '100%',
         overflow: 'hidden',
-        padding: 1,
+        padding: 2,
       }}
     >
       <View
         style={{
           height: innerHeight,
           alignItems: 'center',
-          borderTopLeftRadius: 0,
-          borderTopRightRadius: 0,
-          borderBottomLeftRadius: 10,
-          borderBottomRightRadius: 10,
+      
+          borderRadius: 10,
           width: '100%',
-          paddingBottom: 10,
+
+          backgroundColor: props.bgColor,
+          flex: 1,
+          flexDirection: 'row',
         }}
       >
-        <Text style={styles.exerciseTitle}>{props.title}</Text>
-        <Text style={styles.exerciseText}>{props.summary}</Text>
         {props.children}
+        <View style={{ width: '50%', padding: 5 }}>
+          <Text style={styles.exerciseTitle}>{props.title}</Text>
+          <Text style={styles.exerciseText}>{props.summary}</Text>
+        </View>
       </View>
     </View>
   );

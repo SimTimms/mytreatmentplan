@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   treatmentPlan: { width: '100%', height: 94 },
-  exerciseCard: { width: '90%', height: 200 },
+  exerciseCard: { width: '90%', height: 80 },
   statCard: { width: '90%', height: 120, margin: 10 },
   bodyPartCard: { height: 106 },
   diagnosisCard: {
@@ -83,19 +83,19 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   exerciseText: {
-    color: '#000',
+    color: '#fff',
     fontSize: 10,
     fontWeight: '300',
-    textAlign: 'center',
+    textAlign: 'left',
     flexGrow: 1,
     marginTop: 10,
     marginBottom: 10,
   },
   exerciseTitle: {
-    color: '#000',
-    fontSize: 14,
+    color: '#fff',
+    fontSize: 12,
     fontWeight: '300',
-    textAlign: 'center',
+    textAlign: 'left',
     height: 16,
     marginTop: 10,
   },

@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 import { styles } from '../styles';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
-import { TopMenuBar } from '../components/TopBarMenu';
 import { GET_DIAGNOSIS } from '../api/queries';
 import { DiagnosisWrapper } from '../components/DiagnosisWrapper';
 import { SingleIconButton } from '../components/Buttons';

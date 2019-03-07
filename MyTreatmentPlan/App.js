@@ -3,9 +3,9 @@ import { ApolloProvider } from 'react-apollo';
 import SplashscreenLite from './src/views/SplashscreenLite';
 import Diagnosis from './src/views/Diagnosis';
 import BodyPart from './src/views/BodyPart';
-import ContentArea from './src/views/Content';
+import ContentLite from './src/views/ContentLite';
 import DiagnosisContent from './src/views/DiagnosisContent';
-import ExerciseContent from './src/views/ExerciseContent';
+import ExerciseContentLite from './src/views/ExerciseContentLite';
 import DashboardLite from './src/views/DashboardLite';
 import DashboardMenu from './src/views/DashboardMenu';
 import MenuArea from './src/views/Menu';
@@ -21,7 +21,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'splashcreen',
+      view: 'diagnosis',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
       textInputData: '',
@@ -66,15 +66,13 @@ export default class App extends React.Component {
             <Diagnosis
               id={props.bodyId}
               setDiagnosis={setDiagnosis}
-              rightMenu={changeView}
+              changeView={changeView}
               style={{ flex: 1 }}
             />
           );
 
         case 'dashboard':
-          return (
-            <DashboardLite onClickVar={changeView} menuClick={changeView} />
-          );
+          return <DashboardLite changeView={changeView} />;
 
         case 'dashboardMenu':
           return (
@@ -91,57 +89,57 @@ export default class App extends React.Component {
 
         case 'treatments':
           return (
-            <ContentArea
+            <ContentLite
               id={props.diagnosisId}
               typeName="treatments"
               typeId="5a82cb1c8ff6fb08a0334a9c"
-              onClickVar={changeView}
+              changeView={changeView}
             />
           );
 
         case 'exercises':
           return (
-            <ExerciseContent
+            <ExerciseContentLite
               id={props.currentPlan}
               typeName="exercises"
-              onClickVar={changeView}
+              changeView={changeView}
               doneExercises={props.doneExercises}
             />
           );
 
         case 'referred':
           return (
-            <ContentArea
+            <ContentLite
               id={props.diagnosisId}
               typeName="referred"
               typeId="5a82cb1c8ff6fb08a0334a9c"
-              onClickVar={changeView}
+              changeView={changeView}
             />
           );
 
         case 'options':
           return (
-            <ContentArea
+            <ContentLite
               id={props.diagnosisId}
               typeName="options"
               typeId="5a82cb1c8ff6fb08a0334a9c"
-              onClickVar={changeView}
+              changeView={changeView}
             />
           );
 
         case 'investigations':
           return (
-            <ContentArea
+            <ContentLite
               id={props.diagnosisId}
               typeName="investigations"
               typeId="5a82cb1c8ff6fb08a0334a9c"
-              onClickVar={changeView}
+              changeView={changeView}
             />
           );
 
         case 'diagnosisContent':
           return (
-            <DiagnosisContent id={props.diagnosisId} onClickVar={changeView} />
+            <DiagnosisContent id={props.diagnosisId} changeView={changeView} />
           );
 
         case 'menu':
@@ -158,7 +156,7 @@ export default class App extends React.Component {
     }
 
     const changeView = view => {
-      this.setState({ diagnosisId: null, view });
+      this.setState({ view });
     };
 
     const setBodyPart = id => {
@@ -171,14 +169,15 @@ export default class App extends React.Component {
         tpArray = [...tpArray, { id, name }];
       }
 
-      AsyncStorage.setItem('tpArray', tpArray).then(
-        this.setState({ treatmentPlans: tpArray }),
-      );
-      AsyncStorage.setItem('currentPlan', id).then(
-        this.setState({ currentPlan: id }),
-      );
+      AsyncStorage.setItem('tpArray', tpArray);
+      AsyncStorage.setItem('currentPlan', id);
 
-      this.setState({ diagnosisId: id, view: 'dashboard' });
+      this.setState({
+        diagnosisId: id,
+        view: 'dashboard',
+        currentPlan: id,
+        treatmentPlans: tpArray,
+      });
     };
 
     const viewSection = (id, category) => {

@@ -3,12 +3,12 @@ import { Query } from 'react-apollo';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../styles';
 import { Header } from 'react-native-elements';
+import InfoText from '../components/InfoText';
 import { SingleIconButton } from '../components/Buttons';
 import { replaceHTMLTags } from '../helpers/index';
-import { GET_DIAGNOSIS_CONTENT } from '../api/queries';
-import InfoText from '../components/InfoText';
+import { FULL_CONTENT } from '../api/queries';
 
-export default class DiagnosisContent extends React.Component {
+export default class ContentLite extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -31,9 +31,10 @@ export default class DiagnosisContent extends React.Component {
           rightComponent={<Text>LOGO</Text>}
         />
         <ScrollView style={styles.scrollView}>
+          <InfoText text="Help yourself recover" />
           <Query
-            query={GET_DIAGNOSIS_CONTENT}
-            variables={{ id: this.props.id }}
+            query={FULL_CONTENT}
+            variables={{ id: this.props.id, typeId: this.props.typeId }}
           >
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
@@ -41,16 +42,17 @@ export default class DiagnosisContent extends React.Component {
                 return <Text>{error.toString()}</Text>;
               }
 
-              const header = data.publicDiagnosisContent.name;
-              const page = data.publicDiagnosisContent.pages[0];
-              const pageContent = page.content;
+              const typeName = this.props.typeName;
+              if (!data.getCommonPlan[typeName]) {
+                return <Text>{`No ${typeName}`}</Text>;
+              }
 
               return (
                 <View>
-                  <InfoText text={`Understanding your diagnosis`} />
-                  <View style={{ paddingLeft: 30, paddingRight: 30 }}>
-                    <Text>
-                      {pageContent.map(contentItem => {
+                  {data.getCommonPlan.optionsResolved.map(page => {
+                    const pageCategory = page.type.name;
+                    const pageContent = page.pages[0].content.map(
+                      contentItem => {
                         if (contentItem.richText !== null) {
                           return (
                             <Text key={Math.random(100000)}>
@@ -58,9 +60,20 @@ export default class DiagnosisContent extends React.Component {
                             </Text>
                           );
                         }
-                      })}
-                    </Text>
-                  </View>
+                      },
+                    );
+
+                    return [
+                      <Text
+                        style={{ fontWeight: 'bold' }}
+                        key={Math.random(100000)}
+                      >
+                        {page.pages[0].header.title}
+                      </Text>,
+                      <Text key={Math.random(100000)}>{pageCategory}</Text>,
+                      ...pageContent,
+                    ];
+                  })}
                 </View>
               );
             }}
