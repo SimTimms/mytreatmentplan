@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
 import {
   View,
@@ -7,16 +6,13 @@ import {
   ScrollView,
   WebView,
   TouchableOpacity,
-  ImageBackground,
 } from 'react-native';
 import { styles } from '../styles';
 import { Header } from 'react-native-elements';
-import { TopMenuBar } from '../components/TopBarMenu';
 import { FULL_CONTENT } from '../api/queries';
 import { SingleIconButton } from '../components/Buttons';
 import InfoText from '../components/InfoText';
 import WarningText from '../components/WarningText';
-import { ExerciseFooter } from '../components/ExerciseFooter';
 import { ExerciseCardWrapper } from '../components/ExerciseCardWrapper';
 import PageWrapper from '../components/PageWrapper';
 
@@ -25,7 +21,6 @@ export default class ExerciseContentLite extends React.Component {
     super(props);
   }
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <Header
@@ -66,19 +61,14 @@ export default class ExerciseContentLite extends React.Component {
               return (
                 <PageWrapper>
                   {data.getCommonPlan[0].exerciseDetails.map(exercise => {
+                    console.log(exercise.videos[0]);
                     const exerciseName = exercise.name;
                     const exerciseDescription = exercise.description;
-                    const exerciseDone = this.props.doneExercises
-                      ? this.props.doneExercises.includes(exercise.id)
-                      : false;
 
                     return (
-                      <TouchableOpacity
+                      <View
                         style={[styles.card, styles.exerciseCard]}
                         key={exercise.id}
-                        onPress={() => {
-                          this.props.exerciseSubmit(exercise.id);
-                        }}
                       >
                         <ExerciseCardWrapper
                           parentStyle={styles.exerciseCard}
@@ -90,21 +80,14 @@ export default class ExerciseContentLite extends React.Component {
                           summary={exerciseDescription}
                           style={{ flex: 1, width: 200 }}
                         >
-                          <View
-                            style={{
-                              width: '50%',
-                              height: 80,
+                          <WebView
+                            source={{
+                              uri: exercise.videos[0],
                             }}
-                          >
-                            <WebView
-                              source={{
-                                uri: exercise.videos[0],
-                              }}
-                              style={{ height: 148 }}
-                            />
-                          </View>
+                            style={{ height: 60, width: '90%', marginLeft: 5 }}
+                          />
                         </ExerciseCardWrapper>
-                      </TouchableOpacity>
+                      </View>
                     );
                   })}
                 </PageWrapper>

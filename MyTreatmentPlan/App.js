@@ -6,11 +6,11 @@ import BodyPart from './src/views/BodyPart';
 import ContentLite from './src/views/ContentLite';
 import DiagnosisContent from './src/views/DiagnosisContent';
 import ExerciseContentLite from './src/views/ExerciseContentLite';
+import Timeline from './src/views/Timeline';
 import DashboardLite from './src/views/DashboardLite';
 import DashboardMenu from './src/views/DashboardMenu';
 import MenuArea from './src/views/Menu';
 import { client } from './apolloConfig';
-import { AsyncStorage } from 'react-native';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './src/store/reducers/';
@@ -21,7 +21,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'diagnosis',
+      view: 'splash',
       diagnosisId: '5ad89784f3ed1c24fcbef9cf',
       bodyId: '5a7d745315f433032bdfae68',
       textInputData: '',
@@ -32,12 +32,14 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+    /*
     await AsyncStorage.getItem('exerciseArray').then(value =>
       this.setState({ exercises: value || [] }),
     );
     await AsyncStorage.getItem('tpArray').then(value =>
       this.setState({ treatmentPlans: value || [] }),
     );
+    */
   }
 
   setValueLocally = exerciseId => {
@@ -45,17 +47,18 @@ export default class App extends React.Component {
     if (!exerciseArray.includes(exerciseId)) {
       exerciseArray = [...exerciseArray, exerciseId];
     }
+    /*
     AsyncStorage.setItem('exerciseArray', exerciseArray).then(
       this.setState({ exercises: exerciseArray }),
-    );
+    );*/
   };
 
   setTreatmentPlan = id => {
-    console.log(id);
+    /*
     AsyncStorage.setItem('currentPlan', id).then(
-      this.setState({ currentPlan: id }),
-    );
-    this.setState({ view: 'dashboard' });
+      this.setState({ }),
+    );*/
+    this.setState({ view: 'dashboard', currentPlan: id });
   };
 
   render() {
@@ -92,7 +95,7 @@ export default class App extends React.Component {
             <ContentLite
               id={props.diagnosisId}
               typeName="treatments"
-              typeId="5a82cb1c8ff6fb08a0334a9c"
+              typeId="5a82cb1c8ff6fb08a0334a9f"
               changeView={changeView}
             />
           );
@@ -104,6 +107,15 @@ export default class App extends React.Component {
               typeName="exercises"
               changeView={changeView}
               doneExercises={props.doneExercises}
+            />
+          );
+
+        case 'timeline':
+          return (
+            <Timeline
+              id={props.diagnosisId}
+              typeName="timeline"
+              changeView={changeView}
             />
           );
 
@@ -121,9 +133,10 @@ export default class App extends React.Component {
           return (
             <ContentLite
               id={props.diagnosisId}
-              typeName="options"
+              typeName="optionsDiscussed"
               typeId="5a82cb1c8ff6fb08a0334a9c"
               changeView={changeView}
+              colorScheme="#FFAF6D"
             />
           );
 
@@ -132,14 +145,18 @@ export default class App extends React.Component {
             <ContentLite
               id={props.diagnosisId}
               typeName="investigations"
-              typeId="5a82cb1c8ff6fb08a0334a9c"
+              typeId="5a82cb1c8ff6fb08a0334a9e"
               changeView={changeView}
             />
           );
 
         case 'diagnosisContent':
           return (
-            <DiagnosisContent id={props.diagnosisId} changeView={changeView} />
+            <DiagnosisContent
+              id={props.diagnosisId}
+              changeView={changeView}
+              colorScheme="#FF6D7F"
+            />
           );
 
         case 'menu':
@@ -168,10 +185,10 @@ export default class App extends React.Component {
       if (!tpArray.includes({ id, name })) {
         tpArray = [...tpArray, { id, name }];
       }
-
+      /*
       AsyncStorage.setItem('tpArray', tpArray);
       AsyncStorage.setItem('currentPlan', id);
-
+*/
       this.setState({
         diagnosisId: id,
         view: 'dashboard',

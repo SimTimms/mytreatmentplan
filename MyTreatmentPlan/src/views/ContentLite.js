@@ -24,33 +24,48 @@ export default class ContentLite extends React.Component {
                 this.props.changeView('dashboard');
               }}
             >
-              <SingleIconButton title="BACK" icon="chevron-left" />
+              <SingleIconButton
+                title="BACK"
+                icon="chevron-left"
+                colorScheme={this.props.colorScheme}
+              />
             </TouchableOpacity>
           }
           containerStyle={{ backgroundColor: 'transparent' }}
           rightComponent={<Text>LOGO</Text>}
         />
         <ScrollView style={styles.scrollView}>
-          <InfoText text="Help yourself recover" />
           <Query
             query={FULL_CONTENT}
             variables={{ id: this.props.id, typeId: this.props.typeId }}
           >
             {({ loading, error, data }) => {
-              if (loading) return <Text>Loading...</Text>;
+              if (loading)
+                return <Text key={Math.random(100000)}>Loading...</Text>;
               if (error) {
-                return <Text>{error.toString()}</Text>;
+                return (
+                  <Text key={Math.random(100000)}>{error.toString()}</Text>
+                );
               }
-
+              console.log(this.props.id, data);
               const typeName = this.props.typeName;
-              if (!data.getCommonPlan[typeName]) {
-                return <Text>{`No ${typeName}`}</Text>;
+              if (!data.getCommonPlan[0][typeName]) {
+                return (
+                  <View
+                    style={{ paddingLeft: 30, paddingRight: 30 }}
+                    key={Math.random(100000)}
+                  >
+                    <Text>{`No ${typeName}`}</Text>
+                  </View>
+                );
               }
 
               return (
-                <View>
-                  {data.getCommonPlan.optionsResolved.map(page => {
-                    const pageCategory = page.type.name;
+                <View
+                  style={{ paddingLeft: 30, paddingRight: 30 }}
+                  key={Math.random(100000)}
+                >
+                  {data.getCommonPlan[0][typeName].map(page => {
                     const pageContent = page.pages[0].content.map(
                       contentItem => {
                         if (contentItem.richText !== null) {
@@ -64,13 +79,11 @@ export default class ContentLite extends React.Component {
                     );
 
                     return [
-                      <Text
-                        style={{ fontWeight: 'bold' }}
+                      <InfoText
+                        text={page.pages[0].header.title}
                         key={Math.random(100000)}
-                      >
-                        {page.pages[0].header.title}
-                      </Text>,
-                      <Text key={Math.random(100000)}>{pageCategory}</Text>,
+                      />,
+                      ,
                       ...pageContent,
                     ];
                   })}

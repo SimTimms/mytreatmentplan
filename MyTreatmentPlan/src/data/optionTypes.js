@@ -9,7 +9,7 @@ export const optionsArray = [
     name: 'Options Discussed',
     id: '5a82cb1c8ff6fb08a0334a9c',
     image: 'chorizo.jpg',
-    keyName: 'options',
+    keyName: 'optionsDiscussed',
   },
   {
     name: 'Investigations',

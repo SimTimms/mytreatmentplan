@@ -21,10 +21,8 @@ export const ExerciseCardWrapper = props => {
         style={{
           height: innerHeight,
           alignItems: 'center',
-      
           borderRadius: 10,
           width: '100%',
-
           backgroundColor: props.bgColor,
           flex: 1,
           flexDirection: 'row',

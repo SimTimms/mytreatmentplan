@@ -21,10 +21,25 @@ export const GET_DIAGNOSIS_CONTENT = gql`
             }
           }
           richText {
+            type
             text
           }
         }
         orderNbr
+      }
+      timeline {
+        title
+        subtitle
+        conditionFeature {
+          title
+          duration
+        }
+        timelineNote {
+          title
+          subtitle
+          startPeriod
+          endPeriod
+        }
       }
     }
   }
@@ -60,7 +75,46 @@ export const FULL_CONTENT = gql`
           id
         }
         name
-
+        pages {
+          title
+          header {
+            icon
+            title
+            subtitle
+          }
+          content {
+            richText {
+              text
+            }
+          }
+        }
+      }
+      investigations {
+        type {
+          name
+          id
+        }
+        name
+        pages {
+          title
+          header {
+            icon
+            title
+            subtitle
+          }
+          content {
+            richText {
+              text
+            }
+          }
+        }
+      }
+      optionsDiscussed {
+        type {
+          name
+          id
+        }
+        name
         pages {
           title
           header {

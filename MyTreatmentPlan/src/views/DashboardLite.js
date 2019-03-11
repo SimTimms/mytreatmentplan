@@ -57,6 +57,19 @@ export default class App extends React.Component {
               text="Recover"
               bgImage={'splash'}
             />
+
+            <ImageCard
+              importStyle={[styles.card, styles.bodyPartCard]}
+              importKey="investigate-id"
+              pressAction={() => {
+                this.props.changeView('treatments');
+              }}
+              parentStyle={styles.bodyPartCard}
+              bgColor="#4a4a4a"
+              borderColor="#6DFFE2"
+              text="Treat"
+              bgImage={'splash'}
+            />
             <ImageCard
               importStyle={[styles.card, styles.bodyPartCard]}
               importKey="investigate-id"
